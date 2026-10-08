@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Портал службы безопасности — обзор проекта</title>
+<style>
+:root{
+  --bg:#F1F2F0; --surface:#fff; --ink:#1B1F24; --muted:#586069; --line:#D3D6D2; --tint:#E6E8E4;
+  --brand:#8A1F2D; --brand-ink:#fff;
+  --learn:#1F5FA8; --check:#1B7556; --insp:#A8620F; --audit:#6A3D9A;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#101315;--surface:#181C1F;--ink:#E9ECEA;--muted:#9AA3A0;--line:#2B3236;--tint:#21272A;
+  --brand:#E26A78;--brand-ink:#190A0C;--learn:#7FB0EE;--check:#5CCB9F;--insp:#F0A850;--audit:#BE9BEA}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+header .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+header b{font-size:18px}
+nav{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--ink)}
+.btn{display:inline-block;background:var(--brand);color:var(--brand-ink);padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:600}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:48px 0 12px;letter-spacing:-.02em}
+h2{font-size:26px;margin:0 0 6px}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.lead{color:var(--muted);max-width:680px;margin:0 0 24px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c,var(--line));border-radius:6px;padding:16px}
+.card h3{margin:0 0 6px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:14px}
+.tag{font-size:12px;font-weight:600;color:var(--c);text-transform:uppercase;letter-spacing:.04em}
+.stat{font-size:34px;font-weight:700;color:var(--brand);line-height:1.1}
+/* flow */
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.step{flex:1 1 150px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px;position:relative}
+.step i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--brand);color:var(--brand-ink);font-size:13px;font-weight:700;margin-bottom:6px}
+.step small{display:block;color:var(--muted)}
+/* bars */
+.bar{margin:10px 0}
+.bar div.l{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}
+.track{height:12px;background:var(--tint);border-radius:6px;overflow:hidden}
+.fill{height:100%;background:var(--c);border-radius:6px}
+/* roadmap */
+.road{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));counter-reset:r}
+.ph{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;position:relative}
+.ph.done{border-color:var(--check)}
+.ph .st{font-size:12px;font-weight:600;color:var(--muted)}.ph.done .st{color:var(--check)}
+.ph h3{margin:4px 0;font-size:16px}.ph p{margin:0;font-size:14px;color:var(--muted)}
+/* versions */
+.two{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+ul{margin:8px 0 0;padding-left:20px;font-size:14px}li{margin:3px 0}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--tint)}
+.risk{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;font-weight:600;background:var(--tint)}
+footer{padding:32px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--learn);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <b>🛡 Портал службы безопасности</b>
+  <nav><a href="#dirs">Направления</a><a href="#flow">Аудит</a><a href="#goals">Цели</a><a href="#roles">Роли</a><a href="#road">Этапы</a><a href="#risks">Риски</a></nav>
+  <a class="btn" href="security-service.html">Открыть прототип</a>
+</div></header>
+
+<main class="wrap">
+<h1>Безопасность, которую можно проверить</h1>
+<p class="lead">Единый портал для обучения сотрудников, проверок знаний, инспекций помещений и аудитов подразделений. Заменяет письма, таблицы и устные договорённости одним местом с планом, правилами и результатами. Версия 0.1, 8 октября 2026.</p>
+
+<section id="dirs" style="border-top:0;padding-top:0">
+  <h2>Четыре направления</h2>
+  <p class="lead">Каждое отвечает на свой вопрос. Цвет всегда дублируется подписью.</p>
+  <div class="grid">
+    <div class="card" style="--c:var(--learn)"><span class="tag">Обучение</span><h3>Знают ли правила?</h3><p>Курсы по 30–45 минут, очные форматы для руководителей и ИТ.</p></div>
+    <div class="card" style="--c:var(--check)"><span class="tag">Проверки</span><h3>Применяют ли знания?</h3><p>Тест из 6 ситуаций, учебные фишинговые рассылки, контрольные проверки.</p></div>
+    <div class="card" style="--c:var(--insp)"><span class="tag">Инспекции</span><h3>В порядке ли помещения?</h3><p>3 чек-листа, процент соответствия и готовый акт с замечаниями.</p></div>
+    <div class="card" style="--c:var(--audit)"><span class="tag">Аудиты</span><h3>Работает ли система?</h3><p>Внутренние аудиты и проверки подрядчиков по единому порядку.</p></div>
+  </div>
+</section>
+
+<section id="flow">
+  <h2>Как проходит аудит</h2>
+  <p class="lead">Порядок одинаков для всех и заранее известен участникам.</p>
+  <div class="flow">
+    <div class="step"><i>1</i><b>Уведомление</b><small>за 10 раб. дней</small></div>
+    <div class="step"><i>2</i><b>Изучение документов</b><small>до 5 раб. дней</small></div>
+    <div class="step"><i>3</i><b>Проверка на месте</b><small>1–5 раб. дней</small></div>
+    <div class="step"><i>4</i><b>Отчёт</b><small>в течение 5 раб. дней</small></div>
+    <div class="step"><i>5</i><b>Устранение и контроль</b><small>по критичности</small></div>
+  </div>
+  <h3 style="margin:24px 0 0;font-size:16px">Сроки устранения замечаний</h3>
+  <div class="bar" style="--c:var(--brand)"><div class="l"><span>Критичные</span><b>3 раб. дня</b></div><div class="track"><div class="fill" style="width:3.3%"></div></div></div>
+  <div class="bar" style="--c:var(--insp)"><div class="l"><span>Значимые</span><b>30 дней</b></div><div class="track"><div class="fill" style="width:33%"></div></div></div>
+  <div class="bar" style="--c:var(--check)"><div class="l"><span>Остальные</span><b>90 дней</b></div><div class="track"><div class="fill" style="width:100%"></div></div></div>
+</section>
+
+<section id="goals">
+  <h2>Цели на 12 месяцев</h2>
+  <p class="lead">Исходные значения измеряются в первый месяц работы.</p>
+  <div class="grid">
+    <div class="card"><div class="stat">≥ 95%</div><p>сотрудников прошли годовой курс</p></div>
+    <div class="card"><div class="stat">≤ 8%</div><p>переходят по ссылке в учебной фишинговой рассылке</p></div>
+    <div class="card"><div class="stat">≥ 80%</div><p>инцидентов сообщены в течение часа</p></div>
+    <div class="card"><div class="stat">100%</div><p>инспекций оформлены по чек-листу и актом</p></div>
+    <div class="card"><div class="stat">≥ 85%</div><p>замечаний устранены в срок</p></div>
+    <div class="card"><div class="stat">100%</div><p>подразделений предупреждены за 5 раб. дней</p></div>
+  </div>
+</section>
+
+<section id="scope">
+  <h2>Что в версиях</h2>
+  <div class="two">
+    <div class="card" style="--c:var(--check)"><span class="tag">Версия 1 · готов прототип</span>
+      <ul><li>Витрина и 4 ближайших мероприятия</li><li>Годовой план с фильтром по типу</li><li>Каталог курсов</li><li>3 чек-листа и формирование акта</li><li>Тест из 6 вопросов с разбором</li><li>Порядок аудита, состав службы</li><li>Форма заявки, светлая и тёмная темы</li></ul></div>
+    <div class="card" style="--c:var(--learn)"><span class="tag">Версия 2 · нужен сервер</span>
+      <ul><li>Вход сотрудников и роли</li><li>Хранение результатов, актов, замечаний</li><li>Ответственные, сроки, напоминания</li><li>Конструктор чек-листов и тестов</li><li>Редактор плана и уведомления</li><li>Отчёты и выгрузка</li><li>Приём инцидентов с номером</li></ul></div>
+  </div>
+  <p class="lead" style="margin-top:14px">Не входит: видеонаблюдение и контроль доступа, юридическое сопровождение расследований, сертификация.</p>
+</section>
+
+<section id="roles">
+  <h2>Роли</h2>
+  <table>
+    <tr><th>Роль</th><th>Задачи</th></tr>
+    <tr><td>Сотрудник</td><td>Узнать правила, пройти курс и тест, сообщить об инциденте</td></tr>
+    <tr><td>Руководитель подразделения</td><td>Видеть план, статус обучения команды, акты и замечания</td></tr>
+    <tr><td>Инспектор</td><td>Обход по чек-листу, акт, контроль устранения (с телефона)</td></tr>
+    <tr><td>Аудитор</td><td>Программа, доказательства, отчёт по шаблонам</td></tr>
+    <tr><td>Специалист по обучению</td><td>Курсы, тесты, рассылки, статистика</td></tr>
+    <tr><td>Руководитель службы</td><td>Утверждает план, видит показатели и риски на одной странице</td></tr>
+  </table>
+</section>
+
+<section id="road">
+  <h2>Этапы</h2>
+  <div class="road">
+    <div class="ph done"><span class="st">✓ Готово</span><h3>0. Прототип</h3><p>Статический портал с демо-данными</p></div>
+    <div class="ph"><span class="st">Далее</span><h3>1. Согласование</h3><p>Подтвердить допущения, заменить демо-данные реальными</p></div>
+    <div class="ph"><span class="st">Планируется</span><h3>2. Основа</h3><p>Вход, роли, хранение актов, тестов, замечаний. Пилот</p></div>
+    <div class="ph"><span class="st">Планируется</span><h3>3. Автоматизация</h3><p>Уведомления, отчёты, конструктор, фишинг-рассылки</p></div>
+    <div class="ph"><span class="st">Планируется</span><h3>4. Развитие</h3><p>Интеграции с кадрами, календарём, заявками</p></div>
+  </div>
+</section>
+
+<section id="risks">
+  <h2>Риски</h2>
+  <table>
+    <tr><th>Риск</th><th>Вероятность</th><th>Снижение</th></tr>
+    <tr><td>Проверки воспринимают как наказание</td><td><span class="risk">Высокая</span></td><td>Политика «сообщил и не наказан», обезличенная статистика</td></tr>
+    <tr><td>Низкая явка на обучение</td><td><span class="risk">Средняя</span></td><td>Поддержка руководства, обучение в рабочее время, короткие курсы</td></tr>
+    <tr><td>Содержимое устареет</td><td><span class="risk">Средняя</span></td><td>Владелец контента, пересмотр раз в год</td></tr>
+    <tr><td>Расхождение с регламентами</td><td><span class="risk">Средняя</span></td><td>Ссылки на единый реестр, согласование изменений</td></tr>
+    <tr><td>Утечка результатов тестов</td><td><span class="risk">Низкая</span></td><td>Роли доступа, журнал просмотров, минимум данных</td></tr>
+  </table>
+</section>
+</main>
+
+<footer><div class="wrap">Источник: PRD.md. Прототип: <a href="security-service.html">security-service.html</a>. Горячая линия в прототипе: внутренний 1-11 (демо-данные).</div></footer>
+</body>
+</html>
